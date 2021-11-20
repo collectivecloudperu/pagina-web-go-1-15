@@ -6,15 +6,16 @@ import (
 )
 
 // Función main() 
-func main() { 
-
-	// http.Handle("/", http.StripPrefix("/", http.FileServer(http.Dir("./public"))))
+func main() { 	
     
     /* Rutas */
     http.HandleFunc("/", rootHandler)
     http.HandleFunc("/nosotros", nosotrosHandler)
     http.HandleFunc("/servicios", serviciosHandler)
     http.HandleFunc("/contacto", contactoHandler)
+
+    // Servimos Archivos Estáticos (CSS, Imágenes, JS, etc.)
+    http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public")))) 
 
     fmt.Printf("Servidor corriendo en http://localhost:8080")
     http.ListenAndServe(":8080", nil)
